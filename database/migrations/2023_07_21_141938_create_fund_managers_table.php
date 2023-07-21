@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('fund_managers', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
             $table->timestamps();
         });
     }
