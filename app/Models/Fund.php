@@ -1,12 +1,16 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
 class Fund extends Model
 {
     protected $fillable = ['name', 'start_year', 'manager_id', 'aliases'];
+
+    protected $casts = [
+        'aliases' => 'json',
+    ];
 
     public function manager()
     {
