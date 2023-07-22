@@ -32,3 +32,16 @@ php artisan serve
 ```
 
 8. Server will be running on: http://0.0.0.0:80
+
+
+## Running tests
+1. Inside the CanoeTechAssessment directory, go into the docker container:
+```bash
+docker exec -it canoetechassessment-laravel-1 /bin/bash
+```
+
+2. Run the tests:
+```bash
+php artisan test
+```
+
