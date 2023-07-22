@@ -26,16 +26,15 @@ class HandleDuplicateFundWarningListener
         $managerName = $event->managerName;
         $result      = $event->result;
 
-        $isDuplicateFundName = $result['isDuplicateFundName'] ?? false;
+        $isDuplicateFund = $result['isDuplicateFund'] ?? false;
 
-        if ($isDuplicateFundName) {
-            // Example: Logging the duplicate fund warning
-            Log::info('Duplicate fund detected!', [
-                'fund_name' => $fundName,
-                'manager_name' => $managerName,
-                'is_duplicate_fund_name' => $result['isDuplicateFundName'],
-                'is_duplicate_both_fund_and_alias' => $result['isDuplicateBothFundAndAlias'],
-                'match_alias' => $result['matchAlias'],
+        if ($isDuplicateFund) {
+
+            Log::warning('Duplicate fund detected!', [
+                'fund_name'       => $fundName,
+                'manager_name'    => $managerName,
+                'match_fund_name' => $result['matchFundName'],
+                'match_alias'     => $result['matchAlias'],
             ]);
         }
     }
