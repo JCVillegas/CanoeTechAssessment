@@ -17,10 +17,12 @@ class FundTest extends TestCase
             'name' => 'Test Fund Manager',
         ]);
 
+
         $fund = Fund::create([
             'name' => 'Test Fund',
             'start_year' => 2023,
-            'manager_id' => $fundManager->id, // Use the ID of the existing Fund Manager
+            'manager_id' => $fundManager->id,
+            'aliases' => ['alias1', 'alias2', 'alias3']
         ]);
 
         $this->assertInstanceOf(Fund::class, $fund);
@@ -30,3 +32,5 @@ class FundTest extends TestCase
 
 
 }
+
+
