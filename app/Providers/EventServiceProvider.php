@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use App\Events\DuplicateFundWarning;
-use App\Listeners\HandleDuplicateFundWarning;
+use App\Events\DuplicateFundWarningEvent;
+use App\Listeners\HandleDuplicateFundWarningListener;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider
@@ -14,8 +14,8 @@ class EventServiceProvider extends ServiceProvider
      * @var array<class-string, array<int, class-string>>
      */
     protected $listen = [
-        DuplicateFundWarning::class => [
-            HandleDuplicateFundWarning::class,
+        DuplicateFundWarningEvent::class => [
+            HandleDuplicateFundWarningListener::class,
         ],
     ];
 
