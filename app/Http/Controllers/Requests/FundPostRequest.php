@@ -22,7 +22,8 @@ class FundPostRequest extends FormRequest
         return [
             'fund'    => 'required|string|max:255',
             'manager' => 'required|string|max:255',
-            'year'    => 'required|numeric'
+            'year'    => 'required|numeric',
+            'alias'   => 'nullable|array',
         ];
     }
     public function failedValidation(Validator $validator)
