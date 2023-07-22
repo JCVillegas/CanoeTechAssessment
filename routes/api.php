@@ -15,5 +15,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::controller(ApiController::class)->group(function () {
-    Route::post('funds', 'addFund');
+    Route::post('funds', 'createFund');
 });

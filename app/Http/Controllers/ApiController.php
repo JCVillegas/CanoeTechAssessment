@@ -3,18 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Requests\FundPostRequest;
+use App\Services\FundService;
 use Illuminate\Http\JsonResponse;
 
 class ApiController
 {
-    public function addFund(FundPostRequest $request): JsonResponse
+    public function createFund(FundPostRequest $request): JsonResponse
     {
-        $name = $request->input('fund');
-        $manager = $request->input('manager');
-        $year = $request->input('year');
 
-
-        //(new MovieService())->addMovie($request->title);
+        (new FundService())->createFund($request);
         return response()->json(
             [
                 'success' => true,
