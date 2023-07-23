@@ -117,11 +117,17 @@ class FundService
 
     {
         try {
+
+            Log::debug('Update Fund Request Data:', $request->all());
+
             $fund = Fund::findOrFail($id);
 
             $fund->name = $request->fund;
             $fund->start_year = $request->year;
-            $fund->aliases = $request->alias;
+            $fund->aliases = json_encode($request->aliases);
+
+            Log::debug('Updated Fund Data:', $fund->toArray());
+
 
             // Retrieve the manager from the manager_id stored in the Fund
             $managerId = $fund->manager_id;
@@ -134,6 +140,9 @@ class FundService
             }
 
             $fund->save();
+
+            Log::debug('Saved Fund Data:', $fund->toArray());
+
 
             return response()->json(
                 [
