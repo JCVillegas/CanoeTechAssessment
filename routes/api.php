@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::controller(APiFundController::class)->group(function () {
     Route::post('funds', 'createFund');
+    Route::get('funds',  'readFund');
     Route::put('/funds/{id}',  'updateFund');
+
 
 });
