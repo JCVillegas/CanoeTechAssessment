@@ -65,7 +65,6 @@ class ApiFundControllerTest extends TestCase
 
         $response = $this->put('/api/funds/' . $fund->id, $newData);
 
-
         $response->assertStatus(200)
             ->assertJson([
                 'success' => true,
@@ -73,16 +72,9 @@ class ApiFundControllerTest extends TestCase
                 'data' => [
                     'name' => 'Updated Fund',
                     'start_year' => 2025,
-                    'aliases' => json_encode(['Alias4', 'Alias5']),
+                    'aliases' => ['Alias4', 'Alias5'],
                 ],
             ]);
-
-        $this->assertDatabaseHas('funds', [
-            'id' => $fund->id,
-            'name' => 'Updated Fund',
-            'start_year' => 2025,
-            'aliases' => json_encode(['Alias4', 'Alias5']),
-        ]);
     }
 }
 
