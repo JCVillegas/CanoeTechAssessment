@@ -7,7 +7,7 @@ use App\Models\FundManager;
 use App\Services\FundService;
 use Illuminate\Http\JsonResponse;
 
-class ApiController
+class ApiFundController
 {
     protected FundService $fundService;
 
