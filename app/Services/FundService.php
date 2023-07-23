@@ -142,11 +142,14 @@ class FundService
                 // Update the manager's name
                 $manager->name = $request->manager;
                 $manager->save();
+
+                Log::debug('Update Fund | A  Manager has been updated:', $manager->toArray());
             }
 
             $fund->save();
 
-            Log::debug('Update Fund | A  Fund has been updated:', $request->all());
+            Log::debug('Update Fund | A  Fund has been updated:', $fund->toArray());
+
 
             return response()->json(
                 [
