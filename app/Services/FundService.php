@@ -11,7 +11,53 @@ use Illuminate\Validation\ValidationException;
 
 class FundService
 {
-    public function createFund(FundPostRequest $request)
+    public function readFund(Request $request)
+    {
+        try {
+
+            $rules = [
+                'name'    => 'string|max:255',
+                'manager' => 'string|max:255',
+                'year'    => 'numeric',
+            ];
+
+            $validatedData = $request->validate($rules);
+
+            $query = Fund::query();
+
+            // Filter by name
+            if (isset($validatedData['name'])) {
+                $query->where('name', 'like', '%' . $validatedData['name'] . '%');
+            }
+
+            // Filter by fund manager
+            if (isset($validatedData['manager'])) {
+                $query->whereHas('manager', function ($subquery) use ($validatedData) {
+                    $subquery->where('name', 'like', '%' . $validatedData['manager'] . '%');
+                });
+            }
+
+            // Filter by year
+            if (isset($validatedData['year'])) {
+                $query->where('start_year', $validatedData['year']);
+            }
+
+            $funds = $query->get();
+
+            return response()->json([
+                'success' => true,
+                'data'    => $funds,
+            ]);
+
+        } catch (ValidationException $e) {
+
+            return response()->json([
+                'success' => false,
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
+    public function createFund(Request $request)
     {
         try {
             $fundName    = $request->fund;

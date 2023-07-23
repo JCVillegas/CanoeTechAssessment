@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Requests\FundPostRequest;
 use App\Services\FundService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 
 class ApiFundController
@@ -17,6 +18,11 @@ class ApiFundController
     }
 
     public function createFund(FundPostRequest $request): JsonResponse
+    {
+        return $this->fundService->createFund($request);
+    }
+
+    public function readFund(Request $request): JsonResponse
     {
         return $this->fundService->createFund($request);
     }
