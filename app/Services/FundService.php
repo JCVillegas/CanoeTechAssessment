@@ -25,6 +25,8 @@ class FundService
                 'year'    => 'numeric',
             ];
 
+            Log::debug('Read Fund | A request has been initiated:', [$request]);
+
             $validatedData = $request->validate($rules);
 
             // Validate
@@ -58,6 +60,8 @@ class FundService
 
             $funds = $query->get();
 
+            Log::debug('Read Fund | A request has been finished:', [$funds]);
+
             return response()->json([
                 'success'             => true,
                 'data'                => $funds,
@@ -78,6 +82,8 @@ class FundService
             $fundName    = $request->fund;
             $managerName = $request->manager;
 
+            Log::debug('Create Fund | Request Data:', $request->all());
+
             // Check for duplicate Fund
             $duplicateResult = $this->isDuplicateFund($fundName, $managerName);
 
@@ -94,6 +100,8 @@ class FundService
             $fund->start_year = $request->year;
             $fund->aliases    = $request->alias;
             $fund->save();
+
+            Log::debug('Create Fund | A new Fund has been created.:', $fund->toArray());
 
             return response()->json(
                 [
@@ -118,16 +126,13 @@ class FundService
     {
         try {
 
-            Log::debug('Update Fund Request Data:', $request->all());
+            Log::debug('Update Fund | Request Data:', $request->all());
 
             $fund = Fund::findOrFail($id);
 
             $fund->name = $request->fund;
             $fund->start_year = $request->year;
-            $fund->aliases = json_encode($request->aliases);
-
-            Log::debug('Updated Fund Data:', $fund->toArray());
-
+            $fund->aliases = $request->aliases;
 
             // Retrieve the manager from the manager_id stored in the Fund
             $managerId = $fund->manager_id;
@@ -141,8 +146,7 @@ class FundService
 
             $fund->save();
 
-            Log::debug('Saved Fund Data:', $fund->toArray());
-
+            Log::debug('Update Fund | A  Fund has been updated:', $request->all());
 
             return response()->json(
                 [
@@ -171,15 +175,19 @@ class FundService
             $manager->name = $managerName;
             $manager->save();
 
+            Log::debug('Create Fund | A Manager  has been created:', [$manager]);
+
             return $manager;
         }
 
         private function isDuplicateFund($fundName, $managerName)
         {
+            Log::debug('Create Fund | Duplicate method has been called:', ['fund:' . $fundName . 'manager:' . $managerName]);
+
             $result = [
                 'isDuplicateFund' => false,
                 'matchAlias'      => null,
-                'matchFundName'     => null,
+                'matchFundName'   => null,
                 ];
 
             // Check if a fund with the same name or alias exists for the same manager
@@ -238,6 +246,8 @@ class FundService
             foreach ($potentialDuplicates as $index => $row) {
                 $potentialDuplicates[$index]->fund_aliases = json_decode($row->fund_aliases, true);
             }
+
+            Log::debug('Read Fund | A potential duplicate has been searched:', [$potentialDuplicates]);
 
             return $potentialDuplicates->toArray();
         } catch (Exception $e) {

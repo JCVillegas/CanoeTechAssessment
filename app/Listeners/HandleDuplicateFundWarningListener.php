@@ -30,7 +30,7 @@ class HandleDuplicateFundWarningListener
 
         if ($isDuplicateFund) {
 
-            Log::warning('Duplicate fund detected!', [
+            Log::warning('Create Fund | Duplicate fund detected!', [
                 'fund_name'       => $fundName,
                 'manager_name'    => $managerName,
                 'match_fund_name' => $result['matchFundName'],
