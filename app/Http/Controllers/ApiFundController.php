@@ -24,7 +24,7 @@ class ApiFundController
 
     public function readFund(Request $request): JsonResponse
     {
-        return $this->fundService->createFund($request);
+        return $this->fundService->readFund($request);
     }
 
     public function updateFund(FundPostRequest $request, $id)
