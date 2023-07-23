@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Requests\FundPostRequest;
-use App\Models\FundManager;
 use App\Services\FundService;
 use Illuminate\Http\JsonResponse;
+
 
 class ApiFundController
 {
@@ -15,6 +15,7 @@ class ApiFundController
     {
         $this->fundService = $fundService;
     }
+
     public function createFund(FundPostRequest $request): JsonResponse
     {
         $fund = $this->fundService->createFund($request);
@@ -29,4 +30,18 @@ class ApiFundController
         );
     }
 
+    public function updateFund(FundPostRequest $request, $id)
+    {
+
+        $fund = $this->fundService->updateFund($request, $id);
+
+        return response()->json(
+            [
+                'success' => true,
+                'message' => 'Fund has been updated successfully.',
+                'data' => $fund
+            ],
+            200
+        );
+    }
 }

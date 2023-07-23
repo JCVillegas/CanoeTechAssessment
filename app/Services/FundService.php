@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Events\DuplicateFundWarningEvent;
 use App\Http\Controllers\Requests\FundPostRequest;
-use App\Listeners\HandleDuplicateFundWarningListener;
 use App\Models\Fund;
 use App\Models\FundManager;
 
@@ -31,10 +30,35 @@ class FundService
         $fund->name       = $request->fund;
         $fund->manager_id = $manager->id;
         $fund->start_year = $request->year;
-        $fund->aliases    = ($request->alias);
+        $fund->aliases    = $request->alias;
         $fund->save();
 
         return $fund;
+    }
+
+    public function updateFund(FundPostRequest $request, $id)
+    {
+        $fund = Fund::findOrFail($id);
+
+        $fund->name       = $request->fund;
+        $fund->start_year = $request->year;
+        $fund->aliases    = $request->alias;
+
+        // Retrieve the manager from the manager_id stored in the Fund
+        $managerId = $fund->manager_id;
+        $manager   = FundManager::find($managerId);
+
+        if ($manager) {
+            // Update the manager's name
+            $manager->name = $request->manager;
+            $manager->save();
+        }
+
+        $fund->save();
+
+        return $fund;
+
+
     }
 
     private function createManager($managerName)
@@ -87,14 +111,4 @@ class FundService
 
         return $result;
     }
-
-
-
-
-
-
 }
-
-
-
-//If the incoming fund name matches an existing fund name or a fund alias of an existing manager with the same incoming manager
