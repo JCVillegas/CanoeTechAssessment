@@ -18,30 +18,11 @@ class ApiFundController
 
     public function createFund(FundPostRequest $request): JsonResponse
     {
-        $fund = $this->fundService->createFund($request);
-
-        return response()->json(
-            [
-                'success' => true,
-                'message' => 'Fund has been created successfully.',
-                'data' => $fund
-            ],
-            200
-        );
+        return $this->fundService->createFund($request);
     }
 
     public function updateFund(FundPostRequest $request, $id)
     {
-
-        $fund = $this->fundService->updateFund($request, $id);
-
-        return response()->json(
-            [
-                'success' => true,
-                'message' => 'Fund has been updated successfully.',
-                'data' => $fund
-            ],
-            200
-        );
+        return $this->fundService->updateFund($request, $id);
     }
 }
