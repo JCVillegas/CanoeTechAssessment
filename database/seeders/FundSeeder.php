@@ -16,18 +16,18 @@ class FundSeeder extends Seeder
         $manager1 = FundManager::where('name', 'Manager Test 1')->firstOrFail();
 
         Fund::create([
-            'name'       => 'Sample Fund 1',
-            'start_year' => 2000,
-            'manager_id' => $manager1->id,
-            'alias'      => json_encode(['Alias1', 'Alias2', 'Alias3'])
+            'name'         => 'Sample Fund 1',
+            'start_year'   => 2000,
+            'manager_id'   => $manager1->id,
+            'aliases'      => json_encode(['Alias1', 'Alias2', 'Alias3'])
         ]);
 
         $manager2 = FundManager::where('name', 'Manager Test 2')->firstOrFail();
         Fund::create([
-            'name'       => 'Sample Fund 2',
-            'start_year' => 2023,
-            'manager_id' => $manager2->id,
-            'alias'      => json_encode(['Alias4', 'Alias5', 'Alias6'])
+            'name'         => 'Sample Fund 2',
+            'start_year'   => 2023,
+            'manager_id'   => $manager2->id,
+            'aliases'      => json_encode(['Alias4', 'Alias5', 'Alias6'])
 
         ]);
     }
