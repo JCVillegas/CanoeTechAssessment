@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Unit\Database;
 
 use App\Http\Controllers\Requests\FundPostRequest;
 use Illuminate\Support\Facades\Validator;
