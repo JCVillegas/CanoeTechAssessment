@@ -6,7 +6,10 @@ use App\Events\DuplicateFundWarningEvent;
 use App\Http\Controllers\Requests\FundPostRequest;
 use App\Models\Fund;
 use App\Models\FundManager;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
@@ -56,8 +59,9 @@ class FundService
             $funds = $query->get();
 
             return response()->json([
-                'success' => true,
-                'data'    => $funds,
+                'success'             => true,
+                'data'                => $funds,
+                'potentialDuplicates' => $this->getPotentialDuplicates(),
             ]);
 
         } catch (ValidationException $e) {
@@ -202,4 +206,33 @@ class FundService
 
             return $result;
         }
+
+    private function getPotentialDuplicates(): array
+    {
+        $potentialDuplicates = [];
+
+        try {
+
+            $subquery1 = DB::table('funds as f1')
+                ->join('fund_managers as m1', 'f1.name', '=', 'm1.name')
+                ->select('f1.name as fund_name', 'f1.id as fund_id', 'm1.name as manager_name', 'm1.id as manager_id', 'f1.aliases as fund_aliases');
+
+            $subquery2 = DB::table('funds as f2')
+                ->crossJoin(DB::raw('(SELECT 0 AS number UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4
+                          UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9) as numbers'))
+                ->join('fund_managers as m2', DB::raw('JSON_UNQUOTE(JSON_EXTRACT(f2.aliases, CONCAT(\'$[\', numbers.number, \']\')))'), '=', 'm2.name')
+                ->select('f2.name as fund_name', 'f2.id as fund_id', DB::raw('JSON_UNQUOTE(JSON_EXTRACT(f2.aliases, CONCAT(\'$[\', numbers.number, \']\'))) as manager_name'), 'm2.id as manager_id', 'f2.aliases as fund_aliases');
+
+            $potentialDuplicates = DB::query()->fromSub($subquery1->union($subquery2), 'merged_subquery')->get();
+
+
+            foreach ($potentialDuplicates as $index => $row) {
+                $potentialDuplicates[$index]->fund_aliases = json_decode($row->fund_aliases, true);
+            }
+
+            return $potentialDuplicates->toArray();
+        } catch (Exception $e) {
+            return [];
+        }
+    }
 }
