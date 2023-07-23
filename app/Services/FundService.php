@@ -7,6 +7,7 @@ use App\Http\Controllers\Requests\FundPostRequest;
 use App\Models\Fund;
 use App\Models\FundManager;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
 class FundService
@@ -22,6 +23,16 @@ class FundService
             ];
 
             $validatedData = $request->validate($rules);
+
+            // Validate
+            $validator = Validator::make($request->all(), $rules);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'success' => false,
+                    'error'   => $validator->errors(),
+                ], 422);
+            }
 
             $query = Fund::query();
 
