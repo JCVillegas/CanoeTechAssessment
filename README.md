@@ -2,7 +2,6 @@
 
 ### Tools used:
 - Backend: Laravel 10 (PHP Framework)
-- FrontEnd: Laravel Blade Engine (HTML,Javascript, CSS)
 - RDMS: MYSQL 8.0
 
 ## Requirements
@@ -25,8 +24,8 @@ composer install
 ```bash
 php artisan migrate
 php artisan migrate --database=testing
-
-4. Also run the following command to view the frontend interface for logs.
+```
+4.1 Also run the following command to view the frontend interface for logs.
 ```bash
 php artisan log-viewer:publish
 ```
@@ -35,7 +34,7 @@ php artisan log-viewer:publish
 php artisan serve
 ```
 
-8. Server will be running on: http://0.0.0.0:80
+8. Server will be running on: http://127.0.0.1/
 
 ## INSTRUCTIONS
 
@@ -132,3 +131,7 @@ php artisan test
 
 ## Logging
 I added a frontend interface where you can check the logs after performing any Rest request.
+
+
+## ER Diagram
+![This is the ER Diagram](ERDiagram.png)
