@@ -89,6 +89,7 @@ class FundService
 
             // Dispatch event warning
             if ($duplicateResult['isDuplicateFund']) {
+                Log::debug('Create Fund | Duplicate event has been triggered.' ,[]);
                 event(new DuplicateFundWarningEvent($fundName, $managerName, $duplicateResult));
             }
 
