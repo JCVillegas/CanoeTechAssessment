@@ -25,11 +25,9 @@ composer install
 docker-compose up
 ```
 5. Inside the CanoeTechAssessment directory, go into the docker container:
-      :
 ```bash
 docker exec -it canoetechassessment-laravel-1 /bin/bash
 ```
-
 6. Generate a new app key:
 ```bash
 php artisan key:generate
@@ -38,13 +36,11 @@ php artisan key:generate
 ```bash
 php artisan migrate
 php artisan migrate --database=testing
-
 ```
 8. Exit the container and return to the CanoeTechAssessment directory and initiate the web server:
 ```bash
 php artisan serve
 ```
-
 9. Server will be running on: http://127.0.0.1/
 
 ## INSTRUCTIONS
@@ -142,9 +138,8 @@ php artisan test
 ## Logging
 I added a frontend interface where you can check the logs after performing any Rest request.
 It will also log when the Duplicate Warning Event is triggered with a warning.
-```bash
 http://127.0.0.1/logs
-```
+
 
 ## ER Diagram
 ![This is the ER Diagram](ERDiagram.png)
