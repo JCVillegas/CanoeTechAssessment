@@ -25,7 +25,7 @@ class FundService
                 'year'    => 'numeric',
             ];
 
-            Log::debug('Read Fund | A request has been initiated:', [$request]);
+            Log::debug('Read Fund | A request has been initiated:', $request->toArray());
 
             $validatedData = $request->validate($rules);
 
@@ -60,7 +60,7 @@ class FundService
 
             $funds = $query->get();
 
-            Log::debug('Read Fund | A request has been finished:', [$funds]);
+            Log::debug('Read Fund | A request has been finished.', []);
 
             return response()->json([
                 'success'             => true,
@@ -101,7 +101,7 @@ class FundService
             $fund->aliases    = $request->alias;
             $fund->save();
 
-            Log::debug('Create Fund | A new Fund has been created.:', $fund->toArray());
+            Log::debug('Create Fund | A new Fund has been created.', $fund->toArray());
 
             return response()->json(
                 [
@@ -143,12 +143,12 @@ class FundService
                 $manager->name = $request->manager;
                 $manager->save();
 
-                Log::debug('Update Fund | A  Manager has been updated:', $manager->toArray());
+                Log::debug('Update Fund | A  Manager has been updated.', []);
             }
 
             $fund->save();
 
-            Log::debug('Update Fund | A  Fund has been updated:', $fund->toArray());
+            Log::debug('Update Fund | A  Fund has been updated.', []);
 
 
             return response()->json(
@@ -185,7 +185,11 @@ class FundService
 
         private function isDuplicateFund($fundName, $managerName)
         {
-            Log::debug('Create Fund | Duplicate method has been called:', ['fund:' . $fundName . 'manager:' . $managerName]);
+            Log::debug('Create Fund | Duplicate method has been called.' ,
+                [
+                    'fund:' . $fundName .
+                    'manager:' . $managerName
+                ]);
 
             $result = [
                 'isDuplicateFund' => false,
