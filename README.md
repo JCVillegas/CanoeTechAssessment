@@ -85,7 +85,6 @@ curl --location --request PUT 'http://127.0.0.1/api/funds/{fundId' \
 - List funds. (you can filter by year, fund name or manager name)
 ```bash
 curl --location 'http://127.0.0.1/api/funds' \
---data ''
 ```
  - Example of filter by year:
 ```bash
