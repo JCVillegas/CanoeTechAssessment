@@ -134,3 +134,24 @@ http://127.0.0.1/logs
 
 ## ER Diagram
 ![This is the ER Diagram](ERDiagram.png)
+
+
+## Scalability
+
+1. How will your application work as the data set grows increasingly larger?
+2. How will your application work as the # of concurrent users grows increasingly larger?
+
+     - Some considerations to ensure optimal work:
+        - Implement caching mechanisms to avoid unnecessary queries.
+        - Use pagination to retrieve and display data in smaller chunks.
+        - Add more servers to  handle increase load.
+        - Monitor frequently to identify bottlenecks.
+        - Cleanup olr or unused data.
+        - Implement rate limits to control the number of requests.
+        - Implement fail-over and redundancy mechanisms to ensure availability.
+        - Improve error handling and logging to address any issue quickly.
+        - Perform load and performance tests to identify areas of improvement.
+        - 
+
+
+
