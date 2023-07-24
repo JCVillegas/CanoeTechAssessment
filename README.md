@@ -25,10 +25,6 @@ composer install
 php artisan migrate
 php artisan migrate --database=testing
 ```
-4.1 Also run the following command to view the frontend interface for logs.
-```bash
-php artisan log-viewer:publish
-```
 5. Inside the CanoeTechAssessment directory  initiate the web server:
 ```bash
 php artisan serve
@@ -131,7 +127,10 @@ php artisan test
 
 ## Logging
 I added a frontend interface where you can check the logs after performing any Rest request.
-
+It will also log when the Duplicate Warning Event is triggered with a warning.
+```bash
+http://127.0.0.1/logs
+```
 
 ## ER Diagram
 ![This is the ER Diagram](ERDiagram.png)
