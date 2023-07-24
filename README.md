@@ -25,6 +25,10 @@ composer install
 ```bash
 php artisan migrate
 php artisan migrate --database=testing
+
+4. Also run the following command to view the frontend interface for logs.
+```bash
+php artisan log-viewer:publish
 ```
 5. Inside the CanoeTechAssessment directory  initiate the web server:
 ```bash
