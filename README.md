@@ -29,17 +29,23 @@ docker-compose up
 ```bash
 docker exec -it canoetechassessment-laravel-1 /bin/bash
 ```
-6. Run the DB migrations for the app and for the tests:
+
+6. Generate a new app key:
+```bash
+php artisan key:generate
+```
+7. Run the DB migrations for the app and for the tests:
 ```bash
 php artisan migrate
 php artisan migrate --database=testing
+
 ```
-7. Exit the container and return to the CanoeTechAssessment directory and initiate the web server:
+8. Exit the container and return to the CanoeTechAssessment directory and initiate the web server:
 ```bash
 php artisan serve
 ```
 
-8. Server will be running on: http://127.0.0.1/
+9. Server will be running on: http://127.0.0.1/
 
 ## INSTRUCTIONS
 
