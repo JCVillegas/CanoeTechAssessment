@@ -20,12 +20,21 @@ cp .env.example .env
 ```bash
 composer install
 ```
-4. Inside the CanoeTechAssessment directory run the DB migrations for the app and for the tests:
+4. Start docker containers:
+```bash
+docker-compose up
+```
+5. Inside the CanoeTechAssessment directory, go into the docker container:
+      :
+```bash
+docker exec -it canoetechassessment-laravel-1 /bin/bash
+```
+6. Run the DB migrations for the app and for the tests:
 ```bash
 php artisan migrate
 php artisan migrate --database=testing
 ```
-5. Inside the CanoeTechAssessment directory  initiate the web server:
+7. Exit the container and return to the CanoeTechAssessment directory and initiate the web server:
 ```bash
 php artisan serve
 ```
@@ -151,7 +160,7 @@ http://127.0.0.1/logs
         - Implement fail-over and redundancy mechanisms to ensure availability.
         - Improve error handling and logging to address any issue quickly.
         - Perform load and performance tests to identify areas of improvement.
-        - 
+       
 
 
 
