@@ -1,4 +1,16 @@
-## Canoe Tech Assessment for Remotely
+## Canoe Tech
+
+Tasks
+1. Design and create a data model to store data for the entities described above. Please document your ER diagram.
+2. Create a back-end service to support the following use cases:
+a. Display a list of funds optionally filtered by Name, Fund Manager, Year
+b. An Update method to update a Fund and all related attributes.
+3. Create an event-driven back end process to support:
+a. If a new fund is created with a name and manager that matches the name or an alias of an existing fund with the same manager,
+throw a duplicate_fund_warning event.
+
+b. Write a process to Consume the duplicate_fund_warning event
+c. Bonus if time permitting: Add a method to the service created in #2 that will return a list of potentially duplicate funds
 
 ### Tools used:
 - Backend: Laravel 10 (PHP Framework)
